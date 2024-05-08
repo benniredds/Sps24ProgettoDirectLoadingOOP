@@ -13,27 +13,27 @@ jobType: finite
 signals:
   - start
 
-  - tavolaRotante.acceso
-  - tavolaRotante.referenziato
-  - tavolaRotante.inPos1
-  - tavolaRotante.inPos2
-  - tavolaRotante.posizioneAttuale
+  - tavolaRotante._axisInterface.axisOn
+  - tavolaRotante._axisInterface.axisReferenced
+  - tavolaRotante._axisInterface.axisPos1
+  - tavolaRotante._axisInterface.axisPos2
+  - tavolaRotante._axisInterface.axisActualPosition
 
-  - braccioSx.asseAcceso
-  - braccioSx.asseReferenziato
-  - braccioSx.posizioneAttuale
-  - braccioSx.pinzaAperta
-  - braccioSx.pinzaChiusa
-  - braccioSx.inPosAlta
-  - braccioSx.inPosBassa
+  - braccioSx._axisInterface.axisOn
+  - braccioSx._axisInterface.axisReferenced
+  - braccioSx._axisInterface.axisActualPosition
+  - braccioSx._axisInterface.axisPos1
+  - braccioSx._axisInterface.axisPos2
+  - braccioSx._instGripper._gripperInterface.gripperOpened
+  - braccioSx._instGripper._gripperInterface.gripperClosed
 
-  - braccioDx.asseAcceso
-  - braccioDx.asseReferenziato
-  - braccioDx.posizioneAttuale
-  - braccioDx.pinzaAperta
-  - braccioDx.pinzaChiusa
-  - braccioDx.inPosAlta
-  - braccioDx.inPosBassa
+  - braccioDx._axisInterface.axisOn
+  - braccioDx._axisInterface.axisReferenced
+  - braccioDx._axisInterface.axisActualPosition
+  - braccioDx._axisInterface.axisPos1
+  - braccioDx._axisInterface.axisPos2
+  - braccioDx._instGripper._gripperInterface.gripperOpened
+  - braccioDx._instGripper._gripperInterface.gripperClosed
 
 
 ## The checkPoint group contains settings to configure capture of a sample

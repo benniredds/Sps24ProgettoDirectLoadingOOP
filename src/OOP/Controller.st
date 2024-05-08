@@ -13,11 +13,14 @@ NAMESPACE libMotOop
         END_VAR
         VAR_OUTPUT
             cicloAutomatico : BOOL;
+            numeroCicli : INT;
         END_VAR
         VAR
             state : INT;
             timer : OnDelay;
-            numeroCicli : INT;
+        END_VAR
+
+        VAR_IN_OUT
             asseRot : AxisClass;
             asseDx : ArmClass;
             asseSx : ArmClass;
@@ -76,7 +79,7 @@ NAMESPACE libMotOop
                 IF asseSx._armInterface.endPick THEN
                     asseSx._armInterface.endPick := FALSE;
                     state := 6;
-                ELSE
+                ELSE              
                     asseSx.Pick();
                 END_IF;
             6: // Attesa 

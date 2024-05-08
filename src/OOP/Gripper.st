@@ -16,7 +16,10 @@ NAMESPACE libMotOop
             VAR_INPUT
                 timerGripper : LTIME;
             END_VAR
+            _gripperInterface.gripperCmd.closeGripper := FALSE;
             _gripperInterface.gripperCmd.openGripper := TRUE;
+
+            _gripperInterface.gripperClosed := FALSE;
             _instTimerOpen(signal := TRUE, duration := timerGripper, output => _gripperInterface.gripperOpened);
         END_METHOD
 
@@ -24,7 +27,10 @@ NAMESPACE libMotOop
             VAR_INPUT
                 timerGripper : LTIME;
             END_VAR
+            _gripperInterface.gripperCmd.openGripper := FALSE;
             _gripperInterface.gripperCmd.closeGripper := TRUE;
+
+            _gripperInterface.gripperOpened := FALSE;
             _instTimerClose(signal := TRUE, duration := timerGripper, output => _gripperInterface.gripperClosed);
         END_METHOD
     END_CLASS

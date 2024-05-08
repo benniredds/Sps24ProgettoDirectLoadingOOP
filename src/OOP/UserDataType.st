@@ -39,8 +39,8 @@ NAMESPACE libUdtOop
     TYPE
         armInterface : STRUCT
             armCmd : armCommands;
-            armPos1 : BOOL;
-            armPos2 : BOOL;
+            //armPos1 : BOOL;
+            //armPos2 : BOOL;
             endPick : BOOL;
             endPlace : BOOL;
         END_STRUCT;
