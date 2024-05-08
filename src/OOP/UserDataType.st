@@ -56,8 +56,8 @@ NAMESPACE libUdtOop
     TYPE
         POSITION : LREAL (
             NONE := 0,
-            ARMPOS1 := 5.0,
-            ARMPOS2 := 100.0,
+            ARMPOS1 := 100.0,
+            ARMPOS2 := 5.0,
             BUFFERPOS1 := 270.0,
             BUFFERPOS2 := 90.0,
             TOL := 0.5
