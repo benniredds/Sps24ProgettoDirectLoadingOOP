@@ -4,9 +4,10 @@ USING Siemens.Simatic.S71500.MotionControl.Native;
 NAMESPACE libMotOop
 
     CLASS PUBLIC ArmClass EXTENDS AxisClass
+        {S7.extern=ReadWrite}
+        {OpcUa=ReadWrite}
         VAR PUBLIC
             _instGripper : GripperClass;
-            //_instAxis : AxisClass;
             _armInterface : armInterface;
             _statePick : INT;
             _statePlace :INT;

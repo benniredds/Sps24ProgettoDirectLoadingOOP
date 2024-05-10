@@ -22,16 +22,6 @@ PROGRAM MyProgram
         posAxisRotDB  : UINT := UINT#16;
     END_VAR
 
-    VAR_TEMP
-        //posAxisLeftDBRef  : REF_TO TO_PositioningAxis;
-        //posAxisRightDBRef  : REF_TO TO_PositioningAxis;
-        //posAxisRotDBRef  : REF_TO TO_PositioningAxis;
-    END_VAR
-
-    //posAxisRotDBRef := AsPositioningAxisRef(posAxisRotDB);
-    //posAxisLeftDBRef := AsPositioningAxisRef(posAxisLeftDB);
-    //posAxisRightDBRef := AsPositioningAxisRef(posAxisRightDB);
-
 
     instControllore(start := start,
                     posAxisRot := posAxisRotDB,

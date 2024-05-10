@@ -10,6 +10,8 @@ NAMESPACE libMotOop
             _instMc_MoveAbs : MC_MoveAbsolute;
             _axisDB : DB_ANY;
         END_VAR
+        {S7.extern=ReadWrite}
+        {OpcUa=ReadWrite}
         VAR PUBLIC
             _axisInterface : axisInterface;
         END_VAR

@@ -8,6 +8,8 @@ NAMESPACE libMotOop
             _instTimerOpen : OnDelay;
             _instTimerClose : OnDelay;
         END_VAR
+        {S7.extern=ReadWrite}
+        {OpcUa=ReadWrite}
         VAR PUBLIC
             _gripperInterface : gripperInterface;
         END_VAR

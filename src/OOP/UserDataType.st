@@ -1,6 +1,8 @@
 NAMESPACE libUdtOop
 
     TYPE
+    {S7.extern=ReadWrite}
+    {OpcUa=ReadWrite}
         gripperInterface : STRUCT
             gripperCmd : gripperCommands;
             gripperOpened : BOOL;
@@ -9,6 +11,8 @@ NAMESPACE libUdtOop
     END_TYPE
 
     TYPE
+    {S7.extern=ReadWrite}
+    {OpcUa=ReadWrite}
         gripperCommands : STRUCT
             openGripper : BOOL;
             closeGripper : BOOL;
@@ -16,6 +20,8 @@ NAMESPACE libUdtOop
     END_TYPE
 
     TYPE
+    {S7.extern=ReadWrite}
+    {OpcUa=ReadWrite}
         axisInterface : STRUCT
             axisCmd : axisCommands;
             axisOn : BOOL;
@@ -28,6 +34,8 @@ NAMESPACE libUdtOop
     END_TYPE
 
     TYPE
+    {S7.extern=ReadWrite}
+    {OpcUa=ReadWrite}
         axisCommands : STRUCT
             powerAxis : BOOL;
             homingAxis : BOOL;
@@ -37,16 +45,18 @@ NAMESPACE libUdtOop
     END_TYPE
 
     TYPE
+    {S7.extern=ReadWrite}
+    {OpcUa=ReadWrite}
         armInterface : STRUCT
             armCmd : armCommands;
-            //armPos1 : BOOL;
-            //armPos2 : BOOL;
             endPick : BOOL;
             endPlace : BOOL;
         END_STRUCT;
     END_TYPE
 
     TYPE
+    {S7.extern=ReadWrite}
+    {OpcUa=ReadWrite}
         armCommands : STRUCT
             pickArm : BOOL;
             placeArm : BOOL;
