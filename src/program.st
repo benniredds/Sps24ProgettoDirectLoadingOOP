@@ -5,11 +5,15 @@ USING Siemens.Simatic.S71500.MotionControl.Native;
 PROGRAM MyProgram
     VAR_EXTERNAL
         start : BOOL;
+        stop : BOOL;
         tavolaRotante : AxisClass;
         braccioDx : ArmClass;
         braccioSx : ArmClass;
         fineCiclo : BOOL;
         nrCicli : INT;
+        HmiPosGripperSx : LREAL;
+        HmiPosGripperDx : LREAL;
+        HmiMacchinaStati : INT;
     END_VAR
         
     VAR
@@ -24,6 +28,7 @@ PROGRAM MyProgram
 
 
     instControllore(start := start,
+                    stop := stop,
                     posAxisRot := posAxisRotDB,
                     posAxisRight := posAxisRightDB,
                     posAxisLeft := posAxisLeftDB,
@@ -31,6 +36,10 @@ PROGRAM MyProgram
                     asseDx := braccioDx,
                     asseSx := braccioSx,
                     cicloAutomatico => fineCiclo,
-                    numeroCicli => nrCicli);
+                    numeroCicli => nrCicli,
+                    state => HmiMacchinaStati);
+
+    HmiPosGripperSx := braccioSx._axisInterface.axisActualPosition*3.75 + 430.0;
+    HmiPosGripperDx := braccioDx._axisInterface.axisActualPosition*3.75 + 430.0;
 
 END_PROGRAM

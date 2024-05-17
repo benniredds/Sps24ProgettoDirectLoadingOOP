@@ -51,6 +51,7 @@ NAMESPACE libUdtOop
             armCmd : armCommands;
             endPick : BOOL;
             endPlace : BOOL;
+            
         END_STRUCT;
     END_TYPE
 
@@ -82,8 +83,8 @@ NAMESPACE libUdtOop
     
     TYPE
         TIMER : LTIME (
-            GRIPPER := LT#1s,
-            WIP := LT#2s
+            GRIPPER := LT#5s,
+            WIP := LT#5s
         ) := GRIPPER;
     END_TYPE
 

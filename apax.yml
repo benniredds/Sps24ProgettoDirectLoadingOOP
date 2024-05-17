@@ -2,9 +2,9 @@ name: "progettosps24"
 version: 0.0.0
 type: app
 targets:
-  - "1500"
+  #- "1500"
   - plcsim
-  - llvm
+  #- llvm
 variables:
   APAX_BUILD_ARGS:
     - "--debug" # Generate debug information for target "1500"
@@ -16,3 +16,4 @@ dependencies:
   "@ax/system-timer": ^6.0.94
   "@ax/simatic-1500-motioncontrol-v7": ^3.0.4
   "@ax/opcua-server-config": ^0.7.0
+  "@ax/system-edgedetection": ^6.0.94

@@ -7,7 +7,11 @@ NAMESPACE libMotOop
         VAR PROTECTED
             _instMcPower : MC_Power;
             _instMcHome : MC_Home;
-            _instMc_MoveAbs : MC_MoveAbsolute;
+            _instMcMoveAbs : MC_MoveAbsolute;
+
+            _instMcStop : MC_Stop;
+            // _instMcReset : MC_Reset;
+
             _axisDB : DB_ANY;
         END_VAR
         {S7.extern=ReadWrite}
@@ -41,14 +45,26 @@ NAMESPACE libMotOop
             _instMcHome.Execute := TRUE;
         END_METHOD
 
+        // METHOD PUBLIC Reset //reset Asse
+        //     _instMcReset.Restart := FALSE;
+        //     _instMcReset.Execute := TRUE;
+        // END_METHOD
+
+        METHOD PUBLIC Stop //reset Asse
+            _instMcStop.Execute := TRUE;
+            _instMcStop.Mode := 0;
+        END_METHOD
+
+        
         METHOD PUBLIC MoveAbs //Movimento Asse in posizione
             VAR_INPUT
                 direction : INT;
                 position : LREAL;
             END_VAR
-            _instMc_MoveAbs.Execute := TRUE;
-            _instMc_MoveAbs.Position := position;
-            _instMc_MoveAbs.Direction := direction;
+            _instMcMoveAbs.Execute := TRUE;
+            _instMcMoveAbs.Position := position;
+            _instMcMoveAbs.Velocity := 25.0;
+            _instMcMoveAbs.Direction := direction;
         END_METHOD
 
         METHOD PUBLIC CyclicCall //Metodo che inizializza le istruzioni di Motion e lo stato dell'Asse
@@ -65,16 +81,39 @@ NAMESPACE libMotOop
             ELSE
                 _instMcPower(Axis := _axisAsPos^);
                 _instMcHome(Axis := _axisAsPos^);
-                _instMc_MoveAbs(Axis := _axisAsPos^);
+                _instMcMoveAbs(Axis := _axisAsPos^);
+                // _instMcReset(Axis := _axisAsPos^);
+                _instMcStop(Axis := _axisAsPos^);
+
+                //Gestione Home
                 IF _instMcHome.Done THEN
                     _instMcHome.Execute := FALSE;
                 END_IF;
-                IF _instMc_MoveAbs.Done OR _instMc_MoveAbs.CommandAborted THEN
-                    _instMc_MoveAbs.Execute := FALSE;
+
+                //Gestione Reset
+                // IF _instMcReset.Done AND NOT _instMcReset.Restart THEN
+                //     _instMcReset.Execute := FALSE;
+                //     _instMcReset.Restart := TRUE;
+                //     _instMcReset.Execute := TRUE;
+                // END_IF;
+
+                // IF _instMcReset.Done AND _instMcReset.Restart THEN
+                //     _instMcReset.Execute := FALSE;
+                // END_IF;
+
+                //Gestione Stop
+                IF _instMcStop.Done THEN
+                    _instMcStop.Execute := FALSE;
                 END_IF;
+
+                //Gestione Move
+                IF _instMcMoveAbs.Done OR _instMcMoveAbs.CommandAborted THEN
+                    _instMcMoveAbs.Execute := FALSE;
+                END_IF;
+
                 _axisInterface.axisOn := _instMcPower.Status;
                 _axisInterface.axisReferenced := _axisAsPos^.StatusWord.%X5;
-                _axisInterface.axisError := _instMcPower.Error OR _instMcHome.Error OR _instMc_MoveAbs.Error;
+                _axisInterface.axisError := _instMcPower.Error OR _instMcHome.Error OR _instMcMoveAbs.Error;
                 _axisInterface.axisActualPosition := _axisAsPos^.ActualPosition;
             END_IF;
         END_METHOD

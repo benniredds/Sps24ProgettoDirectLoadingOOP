@@ -22,3 +22,6 @@ braccioDx._axisInterface.axisPos1
 braccioDx._axisInterface.axisPos2
 braccioDx._instGripper._gripperInterface.gripperOpened
 braccioDx._instGripper._gripperInterface.gripperClosed
+HmiPosGripperSx
+HmiMacchinaStati
+stop

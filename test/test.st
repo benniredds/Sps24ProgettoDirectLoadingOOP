@@ -32,7 +32,26 @@ NAMESPACE MyGripperTests
             AxUnit.Assert.Equal(TRUE, GripperTest._gripperInterface.gripperOpened);
             AxUnit.Assert.Equal(TRUE, GripperTest._gripperInterface.gripperClosed);
         END_METHOD
-
     END_CLASS
+
+    {TestFixture}
+    CLASS AxisClassTest
+        {Test}
+        METHOD PUBLIC MyTestMethod
+            ; // AxUnit.Assert.Equal(y, x)
+        END_METHOD
+    END_CLASS
+
+    {TestFixture}
+    CLASS ArmClassTest
+        {Test}
+        METHOD PUBLIC MyTestMethod
+            ; // AxUnit.Assert.Equal(y, x)
+        END_METHOD
+    END_CLASS
+
+    
+
+
 
 END_NAMESPACE

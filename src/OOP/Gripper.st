@@ -6,7 +6,9 @@ NAMESPACE libMotOop
     CLASS PUBLIC GripperClass
         VAR PROTECTED
             _instTimerOpen : OnDelay;
+            _signalOpen : BOOL; 
             _instTimerClose : OnDelay;
+            _signalClose : BOOL;
         END_VAR
         {S7.extern=ReadWrite}
         {OpcUa=ReadWrite}
@@ -21,8 +23,16 @@ NAMESPACE libMotOop
             _gripperInterface.gripperCmd.closeGripper := FALSE;
             _gripperInterface.gripperCmd.openGripper := TRUE;
 
-            _gripperInterface.gripperClosed := FALSE;
-            _instTimerOpen(signal := TRUE, duration := timerGripper, output => _gripperInterface.gripperOpened);
+
+            IF NOT _signalOpen THEN
+                _instTimerOpen(signal := _signalOpen, duration := timerGripper, output => _gripperInterface.gripperOpened);
+                _signalOpen := TRUE;
+            END_IF;
+            _instTimerOpen(signal := _signalOpen, duration := timerGripper, output => _gripperInterface.gripperOpened);
+            IF _instTimerOpen.output THEN
+                _gripperInterface.gripperClosed := FALSE;
+                _signalOpen := FALSE;
+            END_IF;
         END_METHOD
 
         METHOD PUBLIC CloseGripper
@@ -32,8 +42,17 @@ NAMESPACE libMotOop
             _gripperInterface.gripperCmd.openGripper := FALSE;
             _gripperInterface.gripperCmd.closeGripper := TRUE;
 
-            _gripperInterface.gripperOpened := FALSE;
-            _instTimerClose(signal := TRUE, duration := timerGripper, output => _gripperInterface.gripperClosed);
+            
+            IF NOT _signalClose THEN
+                _instTimerClose(signal := _signalClose, duration := timerGripper, output => _gripperInterface.gripperClosed);
+                _signalClose := TRUE;
+            END_IF;
+            _instTimerClose(signal := _signalClose, duration := timerGripper, output => _gripperInterface.gripperClosed);
+            IF _instTimerClose.output THEN
+                _gripperInterface.gripperOpened := FALSE;
+                _signalClose := FALSE;
+            END_IF;
+
         END_METHOD
     END_CLASS
 

@@ -1,6 +1,7 @@
 USING libUdtOop;
 USING System.Timer;
 USING Siemens.Simatic.S71500.MotionControl.Native;
+USING System.EdgeDetection;
 
 NAMESPACE libMotOop
 
@@ -10,28 +11,43 @@ NAMESPACE libMotOop
             posAxisRot : DB_ANY;
             posAxisRight : DB_ANY;
             posAxisLeft : DB_ANY;
+            stop : BOOL;
         END_VAR
         VAR_OUTPUT
             cicloAutomatico : BOOL;
             numeroCicli : INT;
+            state : INT;
         END_VAR
         VAR
-            state : INT;
             timer : OnDelay;
+            signal : BOOL;
+            fallingStop : FallingEdge;
+            oldState : INT;
         END_VAR
-
         VAR_IN_OUT
             asseRot : AxisClass;
             asseDx : ArmClass;
             asseSx : ArmClass;
         END_VAR
-        
+        fallingStop(signal := stop);
         CASE state OF
             0: //one-time setup
-                asseRot.SetAxis(posAxisRot);
-                asseDx.SetAxis(posAxisRight);
-                asseSx.SetAxis(posAxisLeft);
-                state := 1;
+                IF start THEN
+                    asseRot.SetAxis(posAxisRot);
+                    asseDx.SetAxis(posAxisRight);
+                    asseSx.SetAxis(posAxisLeft);
+                    state := 1;
+                END_IF;
+                //Gestione Stop e Reset
+                IF stop THEN
+                    asseRot.Stop();
+                    asseDx.Stop();
+                    asseSx.Stop();
+                    //state := 1;
+                END_IF;
+                IF fallingStop.detected THEN
+                    state := oldState;
+                END_IF;
             1: // Avvio Sequenza
                 IF start THEN
                     state := 100;
@@ -79,11 +95,15 @@ NAMESPACE libMotOop
                 IF asseSx._armInterface.endPick THEN
                     asseSx._armInterface.endPick := FALSE;
                     state := 6;
-                ELSE              
+                ELSE
                     asseSx.Pick();
                 END_IF;
-            6: // Attesa 
-                timer(signal := TRUE, duration := TIMER#WIP);
+            6: // Attesa
+                IF NOT signal THEN
+                    timer(signal := signal, duration := TIMER#WIP);
+                    signal := TRUE;
+                END_IF;
+                timer(signal := signal, duration := TIMER#WIP);
                 IF timer.output THEN
                     timer.signal := FALSE;
                     state := 8;
@@ -109,11 +129,15 @@ NAMESPACE libMotOop
                     asseDx.Pick();
                 END_IF;
             14: //Attesa
-                timer(signal := TRUE, duration := TIMER#WIP);
-                IF timer.output THEN
-                    timer.signal := FALSE;
-                    state := 16;
-                END_IF;
+            IF NOT signal THEN
+                timer(signal := signal, duration := TIMER#WIP);
+                signal := TRUE;
+            END_IF;
+            timer(signal := signal, duration := TIMER#WIP);
+            IF timer.output THEN
+                timer.signal := FALSE;
+                state := 16;
+            END_IF;
             16: // Posa con AsseDx
                 IF asseDx._armInterface.endPlace THEN
                     asseDx._armInterface.endPlace := FALSE;
@@ -126,17 +150,16 @@ NAMESPACE libMotOop
                 cicloAutomatico := FALSE;
                 numeroCicli := numeroCicli + 1;
         END_CASE;
-
         asseRot.CyclicCall();
         asseRot.CalculatePosition(POSITION#BUFFERPOS1, POSITION#BUFFERPOS2);
-
         asseDx.CyclicCall();
         asseDx.CalculatePosition(POSITION#ARMPOS1, POSITION#ARMPOS2);
-        
         asseSx.CyclicCall();
         asseSx.CalculatePosition(POSITION#ARMPOS1, POSITION#ARMPOS2);
-
-
+        IF stop THEN
+            oldState := state;
+            state := 0;
+        END_IF;
     END_FUNCTION_BLOCK
 
 END_NAMESPACE

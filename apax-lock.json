@@ -9,7 +9,8 @@
     "dependencies": {
       "@ax/system-timer": "^6.0.94",
       "@ax/simatic-1500-motioncontrol-v7": "^3.0.4",
-      "@ax/opcua-server-config": "^0.7.0"
+      "@ax/opcua-server-config": "^0.7.0",
+      "@ax/system-edgedetection": "^6.0.94"
     },
     "devDependencies": {
       "@ax/sdk": "2311.0.3"
@@ -65,6 +66,13 @@
         "@ax/opcua-server-config-linux-x64": "0.7.0",
         "@ax/opcua-server-config-win-x64": "0.7.0"
       }
+    },
+    "@ax/system-edgedetection": {
+      "name": "@ax/system-edgedetection",
+      "version": "6.0.94",
+      "integrity": "sha512-gMMbEpKb86DCtbiBW3HzElEO+yXx3VskdPq0TPQKNgG8886LVJ4Skkd/yJ9YEElfR+Gvg5oVCLf0St1RSfH0BQ==",
+      "resolved": "https://registry.simatic-ax.siemens.io/@ax/system-edgedetection/-/system-edgedetection-6.0.94.tgz",
+      "dependencies": {}
     },
     "@ax/axunitst": {
       "name": "@ax/axunitst",
