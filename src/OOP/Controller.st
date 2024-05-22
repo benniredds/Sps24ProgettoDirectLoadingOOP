@@ -22,6 +22,7 @@ NAMESPACE libMotOop
             timer : OnDelay;
             signal : BOOL;
             fallingStop : FallingEdge;
+            risingStop : RisingEdge;
             oldState : INT;
         END_VAR
         VAR_IN_OUT
@@ -29,6 +30,7 @@ NAMESPACE libMotOop
             asseDx : ArmClass;
             asseSx : ArmClass;
         END_VAR
+        risingStop(signal := stop);
         fallingStop(signal := stop);
         CASE state OF
             0: //one-time setup
@@ -156,7 +158,7 @@ NAMESPACE libMotOop
         asseDx.CalculatePosition(POSITION#ARMPOS1, POSITION#ARMPOS2);
         asseSx.CyclicCall();
         asseSx.CalculatePosition(POSITION#ARMPOS1, POSITION#ARMPOS2);
-        IF stop THEN
+        IF risingStop.detected THEN
             oldState := state;
             state := 0;
         END_IF;

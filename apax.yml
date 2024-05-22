@@ -2,14 +2,14 @@ name: "progettosps24"
 version: 0.0.0
 type: app
 targets:
-  #- "1500"
+  - "1500"
   - plcsim
   #- llvm
 variables:
   APAX_BUILD_ARGS:
     - "--debug" # Generate debug information for target "1500"
   myPlc_IPADDRESS: 192.168.0.6
-  myPlc_PLCINFO: "6ES7 515-2UN03-0AB0,VV3.1,S7 1515TF,project=TIA_V19,PLC_1"
+  myPlc_PLCINFO: "6ES7 516-3UN00-0AB0,VV3.1,S7 1516TF,project=TIA_V19,PLC_1"
 devDependencies:
   "@ax/sdk": 2311.0.3
 dependencies:

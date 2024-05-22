@@ -83,8 +83,8 @@ NAMESPACE libUdtOop
     
     TYPE
         TIMER : LTIME (
-            GRIPPER := LT#5s,
-            WIP := LT#5s
+            GRIPPER := LT#3s,
+            WIP := LT#7s
         ) := GRIPPER;
     END_TYPE
 
