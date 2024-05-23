@@ -5,8 +5,8 @@ NAMESPACE libUdtOop
     {OpcUa=ReadWrite}
         gripperInterface : STRUCT
             gripperCmd : gripperCommands;
-            gripperOpened : BOOL;
-            gripperClosed : BOOL;
+            gripperOpened : BOOL := TRUE;
+            gripperClosed : BOOL := FALSE;
         END_STRUCT;
     END_TYPE
 

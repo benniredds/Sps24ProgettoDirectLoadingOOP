@@ -13,9 +13,10 @@ CONFIGURATION MyConfiguration
         braccioDx : ArmClass;
         fineCiclo : BOOL;
         nrCicli : INT;
-        HmiPosGripperSx : LREAL;
-        HmiPosGripperDx : LREAL;
+        HmiPosGripperSx : LREAL := 430.0;
+        HmiPosGripperDx : LREAL := 430.0;
         HmiMacchinaStati : INT;
+        HmiPosPezzo : LREAL := 456.0;
     END_VAR
 
 END_CONFIGURATION

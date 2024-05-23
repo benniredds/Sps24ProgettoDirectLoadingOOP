@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}",
             "ip": "192.168.0.6",
-            "symbolsPath": "${workspaceFolder}/bin/plcsim/progettosps24.app"
+            "symbolsPath": "${workspaceFolder}/bin/1500/progettosps24.app"
         }
     ]
 }

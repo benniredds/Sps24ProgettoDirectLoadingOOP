@@ -18,7 +18,9 @@ NAMESPACE libMotOop
             VAR
                 state : INT;
             END_VAR
+
             //Logica Presa Braccio
+            
             CASE _statePick OF
                 0: // Avvio Missione Prendi
                     
@@ -80,7 +82,7 @@ NAMESPACE libMotOop
                     END_IF;
                 6: //Vai a posizione di attesa (alta)
                     IF _axisInterface.axisPos2 THEN
-                        _statePlace := 30;
+                        //_statePlace := 30;
                         _statePlace := 0;
                         _armInterface.endPlace := TRUE;    
                     ELSE

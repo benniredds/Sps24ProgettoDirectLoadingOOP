@@ -8,12 +8,10 @@ NAMESPACE libMotOop
             _instMcPower : MC_Power;
             _instMcHome : MC_Home;
             _instMcMoveAbs : MC_MoveAbsolute;
-
             _instMcStop : MC_Stop;
-            // _instMcReset : MC_Reset;
-
             _axisDB : DB_ANY;
         END_VAR
+
         {S7.extern=ReadWrite}
         {OpcUa=ReadWrite}
         VAR PUBLIC
@@ -45,12 +43,8 @@ NAMESPACE libMotOop
             _instMcHome.Execute := TRUE;
         END_METHOD
 
-        // METHOD PUBLIC Reset //reset Asse
-        //     _instMcReset.Restart := FALSE;
-        //     _instMcReset.Execute := TRUE;
-        // END_METHOD
-
-        METHOD PUBLIC Stop //reset Asse
+    
+        METHOD PUBLIC Stop //Stop  Asse
             _instMcStop.Execute := TRUE;
             _instMcStop.Mode := 0;
         END_METHOD
@@ -82,24 +76,12 @@ NAMESPACE libMotOop
                 _instMcPower(Axis := _axisAsPos^);
                 _instMcHome(Axis := _axisAsPos^);
                 _instMcMoveAbs(Axis := _axisAsPos^);
-                // _instMcReset(Axis := _axisAsPos^);
                 _instMcStop(Axis := _axisAsPos^);
 
                 //Gestione Home
                 IF _instMcHome.Done THEN
                     _instMcHome.Execute := FALSE;
                 END_IF;
-
-                //Gestione Reset
-                // IF _instMcReset.Done AND NOT _instMcReset.Restart THEN
-                //     _instMcReset.Execute := FALSE;
-                //     _instMcReset.Restart := TRUE;
-                //     _instMcReset.Execute := TRUE;
-                // END_IF;
-
-                // IF _instMcReset.Done AND _instMcReset.Restart THEN
-                //     _instMcReset.Execute := FALSE;
-                // END_IF;
 
                 //Gestione Stop
                 IF _instMcStop.Done THEN

@@ -33,6 +33,7 @@ NAMESPACE libMotOop
                 _gripperInterface.gripperClosed := FALSE;
                 _signalOpen := FALSE;
             END_IF;
+            
         END_METHOD
 
         METHOD PUBLIC CloseGripper

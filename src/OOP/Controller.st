@@ -19,8 +19,8 @@ NAMESPACE libMotOop
             state : INT;
         END_VAR
         VAR
-            timer : OnDelay;
-            signal : BOOL;
+            timer1 : OnDelay;
+            timer2 : OnDelay;
             fallingStop : FallingEdge;
             risingStop : RisingEdge;
             oldState : INT;
@@ -30,27 +30,35 @@ NAMESPACE libMotOop
             asseDx : ArmClass;
             asseSx : ArmClass;
         END_VAR
+
         risingStop(signal := stop);
         fallingStop(signal := stop);
+
+
+
         CASE state OF
             0: //one-time setup
                 IF start THEN
                     asseRot.SetAxis(posAxisRot);
                     asseDx.SetAxis(posAxisRight);
                     asseSx.SetAxis(posAxisLeft);
+                    IF NOT fallingStop.detected THEN
                     state := 1;
+                    END_IF;
                 END_IF;
-                //Gestione Stop e Reset
+
+                //Gestione Stop
                 IF stop THEN
                     asseRot.Stop();
                     asseDx.Stop();
                     asseSx.Stop();
-                    //state := 1;
                 END_IF;
+
                 IF fallingStop.detected THEN
                     state := oldState;
                 END_IF;
-            1: // Avvio Sequenza
+
+            1: //Avvio Sequenza
                 IF start THEN
                     state := 100;
                     cicloAutomatico := TRUE;
@@ -101,13 +109,10 @@ NAMESPACE libMotOop
                     asseSx.Pick();
                 END_IF;
             6: // Attesa
-                IF NOT signal THEN
-                    timer(signal := signal, duration := TIMER#WIP);
-                    signal := TRUE;
-                END_IF;
-                timer(signal := signal, duration := TIMER#WIP);
-                IF timer.output THEN
-                    timer.signal := FALSE;
+                timer1(signal := TRUE, duration := TIMER#WIP);
+
+                IF timer1.output THEN
+                    timer1(signal := FALSE, duration := TIMER#WIP);
                     state := 8;
                 END_IF;
             8: // Posa con AsseSx
@@ -131,13 +136,10 @@ NAMESPACE libMotOop
                     asseDx.Pick();
                 END_IF;
             14: //Attesa
-            IF NOT signal THEN
-                timer(signal := signal, duration := TIMER#WIP);
-                signal := TRUE;
-            END_IF;
-            timer(signal := signal, duration := TIMER#WIP);
-            IF timer.output THEN
-                timer.signal := FALSE;
+            timer2(signal := TRUE, duration := TIMER#WIP);
+
+            IF timer2.output THEN
+                timer2(signal := FALSE, duration := TIMER#WIP);
                 state := 16;
             END_IF;
             16: // Posa con AsseDx
@@ -152,12 +154,14 @@ NAMESPACE libMotOop
                 cicloAutomatico := FALSE;
                 numeroCicli := numeroCicli + 1;
         END_CASE;
+        
         asseRot.CyclicCall();
         asseRot.CalculatePosition(POSITION#BUFFERPOS1, POSITION#BUFFERPOS2);
         asseDx.CyclicCall();
         asseDx.CalculatePosition(POSITION#ARMPOS1, POSITION#ARMPOS2);
         asseSx.CyclicCall();
         asseSx.CalculatePosition(POSITION#ARMPOS1, POSITION#ARMPOS2);
+       
         IF risingStop.detected THEN
             oldState := state;
             state := 0;
