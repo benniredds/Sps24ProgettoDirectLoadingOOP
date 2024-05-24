@@ -40,7 +40,6 @@ PROGRAM MyProgram
                     numeroCicli => nrCicli,
                     state => HmiMacchinaStati);
 
-
     // HMI                     
     HmiPosGripperSx := braccioSx._axisInterface.axisActualPosition*3.75 + 430.0;
     HmiPosGripperDx := braccioDx._axisInterface.axisActualPosition*3.75 + 430.0;

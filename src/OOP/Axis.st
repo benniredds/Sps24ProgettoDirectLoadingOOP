@@ -44,7 +44,7 @@ NAMESPACE libMotOop
         END_METHOD
 
     
-        METHOD PUBLIC Stop //Stop  Asse
+        METHOD PUBLIC Stop //Stop Asse
             _instMcStop.Execute := TRUE;
             _instMcStop.Mode := 0;
         END_METHOD

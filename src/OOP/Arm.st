@@ -19,16 +19,11 @@ NAMESPACE libMotOop
                 state : INT;
             END_VAR
 
-            //Logica Presa Braccio
-            
+            //Logica Presa Braccio            
             CASE _statePick OF
                 0: // Avvio Missione Prendi
-                    
-                    //IF _armInterface.armCmd.pickArm THEN
-                        _armInterface.endPick := FALSE;
-                        _statePick := 2;
-                    //END_IF;
-
+                    _armInterface.endPick := FALSE;
+                    _statePick := 2;
                 2: // La pinza è aperta?
                     IF _instGripper._gripperInterface.gripperOpened THEN
                         _statePick := 4;
@@ -64,10 +59,8 @@ NAMESPACE libMotOop
             //Logica Posa Braccio
             CASE _statePlace OF
                 0: // Avvio Missione Posa
-                    //IF _armInterface.armCmd.placeArm THEN
-                        _armInterface.endPlace := FALSE;
-                        _statePlace := 2;
-                    //END_IF;
+                    _armInterface.endPlace := FALSE;
+                    _statePlace := 2;
                 2: //Vai a posizione di posa (bassa)
                     IF _axisInterface.axisPos1 THEN
                         _statePlace := 4;
@@ -82,13 +75,11 @@ NAMESPACE libMotOop
                     END_IF;
                 6: //Vai a posizione di attesa (alta)
                     IF _axisInterface.axisPos2 THEN
-                        //_statePlace := 30;
                         _statePlace := 0;
                         _armInterface.endPlace := TRUE;    
                     ELSE
                         THIS.MoveAbs(direction := DIRECTION#DEFAULT, position := POSITION#ARMPOS2);
                     END_IF;
-                //30: //Fine
             END_CASE;
         END_METHOD
     END_CLASS

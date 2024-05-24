@@ -1,4 +1,5 @@
-USING libmOTOop;
+USING libMotOop;
+
 CONFIGURATION MyConfiguration
     TASK Main(Interval := T#50ms, Priority := 1);
     PROGRAM P1 WITH Main: MyProgram;
