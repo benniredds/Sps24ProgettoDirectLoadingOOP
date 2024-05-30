@@ -60,7 +60,6 @@ NAMESPACE libMotOop
                 IF start THEN
                     state := 100;
                     cicloAutomatico := TRUE;
-                    asseDx._armInterface.endPick := FALSE;
                     asseDx._armInterface.endPlace := FALSE;
                     asseSx._armInterface.endPick := FALSE;
                     asseSx._armInterface.endPlace := FALSE;
